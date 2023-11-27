@@ -1,7 +1,7 @@
 # SeniorChalenge
 Desafio tecnico correspondente a candidatura na Senior Sistemas S.A.
 
-the webservice is hosted on https://senior-chalenge.onrender.com -- (swagger not available)
+the webservice is hosted on https://senior-chalenge.onrender.com -- (swagger available on https://senior-chalenge.onrender.com/swagger/index.html)
 
 Usuarios:(email / senha - permissões)
 https://senior-chalenge.onrender.com/api/user/login
