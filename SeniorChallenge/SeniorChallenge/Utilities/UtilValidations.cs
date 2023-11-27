@@ -14,7 +14,7 @@
         /// <exception cref="ArgumentException">If the value is not a valid cpf, throw a ArgumentException.</exception>
         public static void CheckCPFIsValid(this string value)
         {
-            bool isValid = true;
+            bool isValid = false;
             if (value == null)
             {
                 return;
