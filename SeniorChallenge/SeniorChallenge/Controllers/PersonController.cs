@@ -82,7 +82,7 @@ namespace SeniorChallenge.Controllers
         public ActionResult<Person> GetSingle(int id)
         {
             Person obj = service.GetSingle(id);
-            return obj.Id != 0 ? Ok(obj) : NotFound();
+            return obj != null && obj.Id != 0 ? Ok(obj) : NotFound();
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace SeniorChallenge.Controllers
         public ActionResult<List<Person>> GetFromUF(string uf)
         {
             List<Person> obj = service.GetByUf(uf);
-            return obj.Count == 0 ? Ok(obj) : NoContent();
+            return obj.Count != 0 ? Ok(obj) : NoContent();
         }
 
         /// <summary>
@@ -107,10 +107,11 @@ namespace SeniorChallenge.Controllers
         [HttpGet()]
         [Authorize(Roles = ConstRoles.READ_PERSON)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public ActionResult<List<Person>> GetAll()
         {
             List<Person> obj = service.GetAll();
-            return obj.Count == 0 ? Ok(obj) : NoContent();
+            return obj.Count != 0 ? Ok(obj) : NoContent();
         }
 
         /// <summary>
@@ -123,7 +124,21 @@ namespace SeniorChallenge.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult Delete(int id)
         {
-            return service.Delete(id) ? Ok() : NotFound();
+            bool result;
+            try
+            {
+                result = service.Delete(id);
+                if (!result)
+                {
+                    return NotFound();
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
         }
     }
 }
