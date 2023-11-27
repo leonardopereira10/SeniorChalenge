@@ -14,7 +14,7 @@ namespace SeniorChallenge.Repositories
         /// <returns>The list of registered items filtered by the person's UF.</returns>
         internal List<Person> GetByUf(string uf)
         {
-            return (List<Person>)Persistence.Where(x => x.UF == uf.ToUpper());
+            return Persistence.Where(x => x.UF == uf.ToUpper()).ToList();
         }
     }
 }
